@@ -13,24 +13,34 @@ This paper presents a novel Plug-In Diffusion Model for Recommendation (PDRec) f
 - Scipy==1.7.3
 
 ## Implementation of PDRec
-We use the Toy dataset from the [Amazon](https://nijianmo.github.io/amazon/index.html) platform and the Book dataset from the [Douban](https://github.com/RUCAIBox/RecBole-CDR) platform.
-PDRec (GRU4Rec) on Toy:
+We use the Toy dataset from the [Amazon](https://nijianmo.github.io/amazon/index.html) platform and the Book dataset from the [Douban](https://github.com/RUCAIBox/RecBole-CDR) platform, you can get this.
+
+Due to the file size limitation, you can download the checkpoints of TI-DiffRec released by us from [Google drive](https://drive.google.com/drive/folders/1bD1IO2cG2xkN1WGofXqqz6mV8Ah21FRi?usp=sharing) and place them in the Checkpoint folder.
+
+### PDRec (GRU4Rec) on Toy:
 ```
 CUDA_VISIBLE_DEVICES=0 python PDRec.py --dataset=amazon_toy --lr 0.005 --temperature 5 --scale_weight 2.0 --scale_max 3.0 --rank_weight 0.1 --candidate_min_percentage_user 50 --top_candidate_coarse_num 50 --top_candidate_fine_num 5 --top_candidate_weight 0.3 --base_model GRU4Rec
 ```
-PDRec (SASRec) on Toy:
+### PDRec (SASRec) on Toy:
 ```
 CUDA_VISIBLE_DEVICES=1 python PDRec.py --dataset=amazon_toy --lr 0.005 --temperature 5 --scale_weight 4.0 --scale_max 1.0 --rank_weight 0.1 --candidate_min_percentage_user 90 --top_candidate_coarse_num 50 --top_candidate_fine_num 5 --top_candidate_weight 0.05 --base_model SASRec
 ```
-PDRec (GRU4Rec) on Book:
+### PDRec (GRU4Rec) on Book:
 ```
 CUDA_VISIBLE_DEVICES=2 python PDRec.py --dataset=douban_book --lr 0.01 --temperature 10 --scale_weight 4.0 --scale_max 3.0 --rank_weight 0.3 --candidate_min_percentage_user 80 --top_candidate_coarse_num 100 --top_candidate_fine_num 1 --top_candidate_weight 0.01 --base_model GRU4Rec
 ```
-PDRec (SASRec) on Book:
+### PDRec (SASRec) on Book:
 ```
 CUDA_VISIBLE_DEVICES=3 python PDRec.py --dataset=douban_book --lr 0.001 --temperature 10 --scale_weight 4.0 --scale_max 3.0 --rank_weight 0.5 --candidate_min_percentage_user 80 --top_candidate_coarse_num 100 --top_candidate_fine_num 1 --top_candidate_weight 0.01 --base_model SASRec
 ```
-
+### TI-DiffRec on Toy
+```
+CUDA_VISIBLE_DEVICES=0 python TI_DiffRec.py --lr=5e-5 --dims=[1000] --emb_size=10 --noise_scale=0.01 --noise_min=0.0005 --noise_max=0.005 --reweight=1 --w_min=0.5 --w_max=1.0 --dataset=amazon_toy
+```
+### TI-DiffRec on Book
+```
+CUDA_VISIBLE_DEVICES=0 python TI_DiffRec.py --lr=5e-5 --dims=[256] --emb_size=8 --noise_scale=0.01 --noise_min=0.0005 --noise_max=0.01 --reweight=1 --w_min=0.3 --w_max=1.0 --dataset=douban_book
+```
 
 ## BibTeX
 If you find this work useful for your research, please kindly cite PDRec by:
